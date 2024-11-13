@@ -1,0 +1,40 @@
+{
+    "arrayOfProducts": [
+      {
+        "name": "Wireless Headphones",
+        "price": 79.99,
+        "description": "High-quality wireless headphones with noise-cancellation and a 20-hour battery life."
+      },
+      {
+        "name": "Smart Watch",
+        "price": 149.99,
+        "description": "A sleek smart watch with fitness tracking, heart rate monitoring, and customizable watch faces."
+      },
+      {
+        "name": "Bluetooth Speaker",
+        "price": 39.99,
+        "description": "Portable Bluetooth speaker with rich bass and a 12-hour battery life."
+      },
+      {
+        "name": "Laptop Stand",
+        "price": 25.99,
+        "description": "Adjustable laptop stand for improved posture and airflow to your device."
+      },
+      {
+        "name": "USB-C Hub",
+        "price": 29.99,
+        "description": "A multi-port USB-C hub with HDMI, USB 3.0, and SD card reader support."
+      },
+      {
+        "name": "Wireless Mouse",
+        "price": 19.99,
+        "description": "Ergonomic wireless mouse with adjustable DPI and long battery life."
+      },
+      {
+        "name": "Mechanical Keyboard",
+        "price": 89.99,
+        "description": "RGB mechanical keyboard with tactile switches for a responsive typing experience."
+      }
+    ]
+  }
+  
