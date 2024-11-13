@@ -35,13 +35,13 @@ console.log(topper3);
 /****************************************************************
  * DESTRUCTURING OBJECTS
  ****************************************************************/
- /*var employee = {
-    name: 'Steve',
-    lastName: 'Clark',
-    age: 28,
-    gender: 'Male',
-    Area: ['London', 'UK'],
-    workDetails:{Experience: 5, company: 'Google'},
+/*var employee = {
+   name: 'Steve',
+   lastName: 'Clark',
+   age: 28,
+   gender: 'Male',
+   Area: ['London', 'UK'],
+   workDetails:{Experience: 5, company: 'Google'},
 }
 
 //DESTRUCTURING SYNTAX FOR OBJECTS
@@ -65,7 +65,7 @@ console.log(x, y);
 
 //DESTRUCTURING OBJECT RETURNED BY A FUNCTION
 function returnObj(){
-    return {id: 101, userName: 'JS'};
+   return {id: 101, userName: 'JS'};
 }
 let{id, userName} = returnObj();
 console.log(id, userName);
