@@ -172,6 +172,7 @@ getCountry();
 
 //JavaScript Promises
 //producing code (Producing data)
+/*
 let promise = new Promise(function (resolved, rejected) {
 
     let xhr = new XMLHttpRequest();
@@ -196,3 +197,54 @@ promise.then(function (data) {
 promise.catch(function (error) {
     console.log(error)
 })
+*/
+
+
+//The fetch API
+//MOdern way of making AJAX request
+let countriesContainer = document.querySelector(".countries")
+function displayCountry(data) {
+    let html = `
+        <article class="country">
+        <div class="country_data">
+          <h3 class="country_name">${Object.values(data.name)[0]}</h3>
+          <h4 class="country_region">${data.region}</h4>
+          <p class="country_row"><span>👫</span>${(data.population / 1000000).toFixed(2)} M people</p>
+          <p class="country_row"><span>🗣️</span>${Object.values(data.languages)[0]}</p
+          <p class="country_row"><span>💰</span>${Object.values(data.currencies)[0].name}</p
+        </div>
+      </article>
+        `
+
+    countriesContainer.insertAdjacentHTML("beforeend", html);
+
+}
+
+function getCountry(country) {
+    //Make AJAX Request
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then(function (response) {
+            console.log(response)
+            //json method returns a promise
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            displayCountry(data[0])
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
+
+getCountry("usa");
+getCountry("brazil");
+getCountry("south korea")
+
+//If the promise is resolved
+//1. The then method will be called
+//2. To the callback function of then method, promise will
+//   pass the resolved data
+//3. callback function of the then method is executed
+
+
