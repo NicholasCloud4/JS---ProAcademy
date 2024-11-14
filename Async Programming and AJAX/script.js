@@ -245,6 +245,7 @@ function displayCountry(data) {
 
 
 
+/*
 // Avoid callback hell with Promises
 let countriesContainer = document.querySelector(".countries")
 function displayCountry(data) {
@@ -299,4 +300,68 @@ function getCountry() {
 }
 
 getCountry();
+*/
 
+
+
+// Handling Rejected Promises
+let countriesContainer = document.querySelector(".countries")
+function displayCountry(data) {
+    let html = `
+        <article class="country">
+        <div class="country_data">
+          <h3 class="country_name">${Object.values(data.name)[0]}</h3>
+          <h4 class="country_region">${data.region}</h4>
+          <p class="country_row"><span>👫</span>${(data.population / 1000000).toFixed(2)} M people</p>
+          <p class="country_row"><span>🗣️</span>${Object.values(data.languages)[0]}</p
+          <p class="country_row"><span>💰</span>${Object.values(data.currencies)[0].name}</p
+        </div>
+      </article>
+        `
+
+    countriesContainer.insertAdjacentHTML("beforeend", html);
+
+}
+
+//If the promise is resolved
+//1. The then method will be called
+//2. To the callback function of then method, promise will
+//   pass the resolved data
+//3. callback function of the then method is executed
+
+function getCountry() {
+    //Make AJAX Request
+    fetch(`https://restcountries.com/v3.1/name/usa`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayCountry(data[0])
+            return fetch(`https://restcountries.com/v3.1/name/brazil`)
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayCountry(data[0])
+            return fetch(`https://restcountries.com/v3.1/name/south korea`)
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayCountry(data[0])
+        })
+        .catch(function (error) {
+            console.log(error)
+            countriesContainer.insertAdjacentText("beforebegin", `Something went wrong: ${error.message} Please Try Again!`)
+        })
+        .finally(function () {
+            console.log("Fnally method called!")
+        });
+}
+
+document.getElementById("btn-load")
+    .addEventListener("click", function () {
+        getCountry();
+    })
