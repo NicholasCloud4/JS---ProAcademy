@@ -75,7 +75,7 @@ function getCountry(countryName) {
     //4. When data is not completely loaded yet
     xhr.addEventListener("load", function () {
         let data = JSON.parse(xhr.responseText);
-        // can rewrite the above from: 
+        // can rewrite the above from:
         // let data = JSON.parse(xhr.responseText);
         // to this: let countryData = data[0];
         let countryData = data[0];
@@ -108,6 +108,7 @@ getCountry("south korea")
 
 
 //WHAT is callback hell
+/*
 let countriesContainer = document.querySelector(".countries")
 function displayCountry(data) {
     let html = `
@@ -166,3 +167,32 @@ function getCountry() {
 }
 
 getCountry();
+
+*/
+
+//JavaScript Promises
+//producing code (Producing data)
+let promise = new Promise(function (resolved, rejected) {
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "data1.txt", true);
+
+    xhr.send();
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            resolved(xhr.responseText);
+        } else {
+            rejected("Something went wrong");
+        }
+    }
+});
+
+//consuming code (Consuming Data)
+promise.then(function (data) {
+    console.log(data)
+})
+
+promise.catch(function (error) {
+    console.log(error)
+})
