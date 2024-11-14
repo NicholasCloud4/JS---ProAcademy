@@ -3,3 +3,37 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
 }
+
+.country {
+    display: inline-block;
+    vertical-align: top;
+    width: 18rem;
+    margin: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.country_data {
+    padding: 1rem;
+}
+
+.country_name {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.country_region {
+    font-size: 1rem;
+    color: #666;
+}
+
+.country_row {
+    font-size: 0.875rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.country_row span {
+    margin-right: 0.5rem;
+}
