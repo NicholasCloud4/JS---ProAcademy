@@ -304,6 +304,7 @@ getCountry();
 
 
 
+/*
 // Handling Rejected Promises
 let countriesContainer = document.querySelector(".countries")
 function displayCountry(data) {
@@ -376,3 +377,17 @@ document.getElementById("btn-load")
     .addEventListener("click", function () {
         getCountry();
     })
+*/
+
+
+//understanding Callback Queue VS. Microtask Queue
+console.log("Program starts here.");
+setTimeout(function () {
+    console.log("setTimeout callback executed");
+}, 0)
+Promise.resolve("Promise resolved")
+    .then(function (data) {
+        console.log(data);
+        for (let i = 0; i < 1000000000; i++) { }
+    })
+console.log("Program ends here.");
