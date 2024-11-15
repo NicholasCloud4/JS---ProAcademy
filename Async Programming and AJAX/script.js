@@ -396,8 +396,8 @@ console.log("Program ends here.");
 
 
 
-//Promisifying geolocation API 
-//Geolocation API gets the current cordinates of a user 
+//Promisifying geolocation API
+//Geolocation API gets the current cordinates of a user
 // navigator.geolocation.getCurrentPosition(
 //     (position) => {
 //         console.log(position);
@@ -476,8 +476,9 @@ console.log("Program ends here");
 */
 
 
-//Error handling with try... catch
+
 /*
+//Error handling with try... catch
 try {
     let x = 10;
     const y = "Hello World!";
@@ -487,7 +488,7 @@ catch (error) {
     console.log(error);
 }
 console.log("HAVE A NICE DAY!")
-*/
+
 
 
 let getCountryInfo = async function () {
@@ -502,3 +503,43 @@ let getCountryInfo = async function () {
 }
 
 document.getElementById("btn-load").addEventListener("click", getCountryInfo);
+*/
+
+
+let getPosition = function () {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+
+let getUserCountry = async function () {
+    try {
+        let position = await getPosition()
+        let { latitude } = position.coords;
+        let { longitude } = position.coords;
+
+        let geoResponse = await fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+        let geoData = await geoResponse.json();
+
+        let countryResponse = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`)
+        let countryData = await countryResponse.json();
+        return `you are staying in: ${geoData.country}, ${geoData.city}`;
+    }
+    catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+
+    (async function () {
+        try {
+            console.log("fetchign user location...");
+            let location = await getUserCountry();
+            console.log(location)
+            console.log("user location rendered");
+        }
+        catch (error) {
+            console.error(error);
+        }
+    })();
