@@ -323,6 +323,13 @@ function displayCountry(data) {
 
 }
 
+
+function helperFunction(response) {
+    if (!response.ok) {
+        throw new Error(`Country not found ${response.status}`)
+    }
+}
+
 //If the promise is resolved
 //1. The then method will be called
 //2. To the callback function of then method, promise will
@@ -333,6 +340,8 @@ function getCountry() {
     //Make AJAX Request
     fetch(`https://restcountries.com/v3.1/name/usa`)
         .then(function (response) {
+            console.log(response)
+            helperFunction(response);
             return response.json();
         })
         .then(function (data) {
@@ -340,6 +349,7 @@ function getCountry() {
             return fetch(`https://restcountries.com/v3.1/name/brazil`)
         })
         .then(function (response) {
+            helperFunction(response);
             return response.json();
         })
         .then(function (data) {
@@ -347,6 +357,7 @@ function getCountry() {
             return fetch(`https://restcountries.com/v3.1/name/south korea`)
         })
         .then(function (response) {
+            helperFunction(response);
             return response.json();
         })
         .then(function (data) {
@@ -357,7 +368,7 @@ function getCountry() {
             countriesContainer.insertAdjacentText("beforebegin", `Something went wrong: ${error.message} Please Try Again!`)
         })
         .finally(function () {
-            console.log("Fnally method called!")
+            console.log("Finally method called!")
         });
 }
 
