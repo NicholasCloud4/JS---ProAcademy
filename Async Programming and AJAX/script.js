@@ -435,29 +435,40 @@ let getPosition = function () {
         navigator.geolocation.getCurrentPosition(resolve, reject);
     })
 }
+let displayUserCountry = async function () {
 
-getPosition()
-    .then((position) => {
-        console.log(position);
-        let { latitude } = position.coords;
-        let { longitude } = position.coords;
-        // console.log(latitude, longitude);
-        return fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
-    })
-    .then(function (response) {
-        //console.log(response);
-        return response.json();
-    })
-    .then(function (data) {
-        return fetch(`https://restcountries.com/v3.1/name/${data.country}`)
-    })
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-        displayCountry(data[0]);
-    })
-    .catch((error) => {
-        console.log(error.message);
-    })
+    //1. get the current coordinates of the user
+    let position = await getPosition()
+    console.log(position);
+    let { latitude } = position.coords;
+    let { longitude } = position.coords;
+
+    //2. get the country in which the user is currently located
+    let geoResponse = await fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+    let geoData = await geoResponse.json();
+
+    //3. get the information related to that country
+    let countryResponse = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`)
+    let countryData = await countryResponse.json();
+
+    //4. display the information related to that country in webpage
+    displayCountry(countryData[0]);
+    console.log(countryData[0])
+}
+
+displayUserCountry();
+
+/*
+//JavaScript async await - LOOk at above code
+// async - executes a function asynchronously & returns a promise
+// await - waits for a promise to resolve
+
+let getCountryInfo = async function () {
+    let response = await fetch(`https://restcountries.com/v3.1/name/usa`)
+    let data = await response.json();
+    console.log(data)
+}
+
+getCountryInfo();
+console.log("Program ends here");
+*/
