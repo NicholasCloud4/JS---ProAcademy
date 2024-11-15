@@ -380,6 +380,7 @@ document.getElementById("btn-load")
 */
 
 
+/*
 //understanding Callback Queue VS. Microtask Queue
 console.log("Program starts here.");
 setTimeout(function () {
@@ -391,3 +392,72 @@ Promise.resolve("Promise resolved")
         for (let i = 0; i < 1000000000; i++) { }
     })
 console.log("Program ends here.");
+*/
+
+
+
+//Promisifying geolocation API 
+//Geolocation API gets the current cordinates of a user 
+// navigator.geolocation.getCurrentPosition(
+//     (position) => {
+//         console.log(position);
+//     },
+//     (error) => {
+//         console.log(error);
+//     }
+// );
+
+//Promisifying Geolocation API
+
+//1. get the current coordinates of the user
+//2. get the country in which the user is currently located
+//3. display the information related to that country in webpage
+let countriesContainer = document.querySelector(".countries")
+function displayCountry(data) {
+    let html = `
+        <article class="country">
+        <div class="country_data">
+          <h3 class="country_name">${Object.values(data.name)[0]}</h3>
+          <h4 class="country_region">${data.region}</h4>
+          <p class="country_row"><span>👫</span>${(data.population / 1000000).toFixed(2)} M people</p>
+          <p class="country_row"><span>🗣️</span>${Object.values(data.languages)[0]}</p
+          <p class="country_row"><span>💰</span>${Object.values(data.currencies)[0].name}</p
+        </div>
+      </article>
+        `
+
+    countriesContainer.insertAdjacentHTML("beforeend", html);
+
+}
+
+let getPosition = function () {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+
+getPosition()
+    .then((position) => {
+        console.log(position);
+        let { latitude } = position.coords;
+        let { longitude } = position.coords;
+        // console.log(latitude, longitude);
+        return fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+    })
+    .then(function (response) {
+        //console.log(response);
+        return response.json();
+    })
+    .then(function (data) {
+        return fetch(`https://restcountries.com/v3.1/name/${data.country}`)
+    })
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        displayCountry(data[0]);
+    })
+    .catch((error) => {
+        console.log(error.message);
+    })
