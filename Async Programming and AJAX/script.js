@@ -407,8 +407,9 @@ console.log("Program ends here.");
 //     }
 // );
 
-//Promisifying Geolocation API
 
+/*
+//Promisifying Geolocation API
 //1. get the current coordinates of the user
 //2. get the country in which the user is currently located
 //3. display the information related to that country in webpage
@@ -457,6 +458,7 @@ let displayUserCountry = async function () {
 }
 
 displayUserCountry();
+*/
 
 /*
 //JavaScript async await - LOOk at above code
@@ -472,3 +474,31 @@ let getCountryInfo = async function () {
 getCountryInfo();
 console.log("Program ends here");
 */
+
+
+//Error handling with try... catch
+/*
+try {
+    let x = 10;
+    const y = "Hello World!";
+    y = 99;
+}
+catch (error) {
+    console.log(error);
+}
+console.log("HAVE A NICE DAY!")
+*/
+
+
+let getCountryInfo = async function () {
+    try {
+        let response = await fetch(`https://restcountries.com/v3.1/name/usa`)
+        let data = await response.json();
+        console.log(data)
+    }
+    catch (error) {
+        console.log("Error occured: " + error);
+    }
+}
+
+document.getElementById("btn-load").addEventListener("click", getCountryInfo);
